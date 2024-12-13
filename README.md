@@ -5,7 +5,7 @@
 
 * [Peerflix]([https://github.com/mafintosh/peerflix]) -> A tool to stream torrents.
   `npm install -g peerflix`
-*[mpv]([https://mpv.io/]) -> A free, open source, and cross-platform media player.
+* [mpv]([https://mpv.io/]) -> A free, open source, and cross-platform media player.
 
 ## USAGE 
 
