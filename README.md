@@ -7,8 +7,13 @@
   `npm install -g peerflix`
 * [mpv]([https://mpv.io/]) -> A free, open source, and cross-platform media player.
 
+
 ## USAGE 
 
-Run ./flix.sh <movie name>in terminal ( make sure you are in the same directory where the file is present )
-or just make it a binary
+* Run ./flix.sh [movie name] in terminal ( make sure you are in the same directory where the file is present )
+* or just make it a binary
+
+``` 
+./flix.sh venom
+```
 
