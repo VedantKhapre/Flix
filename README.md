@@ -1,5 +1,5 @@
 <h1>Flix </h1>
-<p>Shell Script to Search and Stream movies via peerflixt</p>
+<p>Shell Script to Search and Stream movies via peerflix</p>
 
 ## Requirements
 
