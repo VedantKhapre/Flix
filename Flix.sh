@@ -1,11 +1,27 @@
-#!/bin/sh 
+#!/bin/sh
 
+# Set up cleanup trap
+cleanup() {
+    echo "Cleaning up temporary files..."
+    rm -rf /tmp/torrent-stream*
+    exit 0
+}
+
+# Trap signals
+trap cleanup INT TERM EXIT
+
+# Get Search term
 if [ $# -eq 0 ]; then
-    echo "Error: Please provide a search term"
-    exit 1
+    read -p "Enter search term: " search_term
+    if [ -z "$search_term" ]; then
+        echo "Error: Search term cannot be empty" >&2
+        exit 1
+    fi
+    query=$(printf '%s' "$search_term" | tr ' ' '+')
+else
+    query=$(printf '%s' "$*" | tr ' ' '+')
 fi
 
-query=$(printf '%s' "$*" | tr ' ' '+')
 echo "Searching for $query"
 
 # Function to fetch results with retries
@@ -54,6 +70,7 @@ done
 
 selection=$((selection-1))
 movie=${movies[$selection]}
+echo "Selected: ${movie##*/}"
 
 # Fetch magnet link
 magnet=$(curl -s "https://1337x.pics/$movie/" | grep -Po "magnet:\?xt=urn:btih:[a-zA-Z0-9]*")
@@ -74,7 +91,8 @@ if ! command -v peerflix &> /dev/null; then
 fi
 
 # Run peerflix with error handling
-if ! peerflix -k "$magnet" --not-on-top --remove; then
+if ! peerflix -k "$magnet" --not-on-top; then
     echo "Error: Failed to start streaming"
+    cleanup
     exit 1
 fi
